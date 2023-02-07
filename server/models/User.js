@@ -1,44 +1,42 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
-//  handle user password hashing using the 
-// bcrypt library.
+
 const userSchema = new Schema(
   {
     username: {
       type: String,
       required: true,
       unique: true,
-      trim: true,
+      trim: true
     },
     email: {
       type: String,
       required: true,
       unique: true,
-      // The match option is a type of validation that allows us to use regex to test the input value. In our case, we are using a regex pattern to test if the data being entered to the email field is in fact a valid email address that follows the pattern <string>@<string>.<string>
-      match: [/.+@.+\..+/, "Must match an email address!"],
+      match: [/.+@.+\..+/, 'Must match an email address!']
     },
     password: {
       type: String,
       required: true,
-      minlength: 5,
+      minlength: 5
     },
     thoughts: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Thought",
-      },
+        ref: 'Thought'
+      }
     ],
     friends: [
       {
         type: Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
+        ref: 'User'
+      }
+    ]
   },
   {
     toJSON: {
-      virtuals: true,
-    },
+      virtuals: true
+    }
   }
 );
 
